@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Gas used per transaction, read from transaction receipts (Cancun rules, solc 0.8.24, optimiser 200 runs). $n$ is the number of receipts; ranges arise from cold/warm storage access.}
+\label{tab:gas}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Transaction & $n$ & Min & Mean & Max \\
+\midrule
+Deploy lease contract & 5 & 1{,}972{,}593 & 1{,}972{,}593 & 1{,}972{,}593 \\
+\texttt{bindIdentity} (per party) & 10 & 66{,}308 & 66{,}525 & 66{,}742 \\
+Token \texttt{approve} (one-off) & 5 & 46{,}679 & 46{,}679 & 46{,}679 \\
+\texttt{lockDeposit} & 5 & 135{,}067 & 135{,}067 & 135{,}067 \\
+\texttt{payRent} & 59 & 75{,}320 & 75{,}610 & 92{,}420 \\
+\texttt{proposeSettlement} & 4 & 83{,}874 & 96{,}159 & 100{,}254 \\
+\texttt{acceptSettlement} & 1 & 124{,}953 & 124{,}953 & 124{,}953 \\
+\texttt{finalizeSettlement} & 1 & 127{,}032 & 127{,}032 & 127{,}032 \\
+\texttt{disputeSettlement} & 1 & 55{,}851 & 55{,}851 & 55{,}851 \\
+\texttt{resolveDispute} & 1 & 128{,}553 & 128{,}553 & 128{,}553 \\
+\texttt{claimAfterTimeout} & 1 & 83{,}194 & 83{,}194 & 83{,}194 \\
+\texttt{withdraw} (per party) & 8 & 39{,}852 & 40{,}738 & 42{,}215 \\
+\bottomrule
+\end{tabular}
+\end{table}

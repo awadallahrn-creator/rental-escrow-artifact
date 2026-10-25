@@ -1,0 +1,83 @@
+=== RUN   TestBindBothParties
+--- PASS: TestBindBothParties (0.01s)
+=== RUN   TestLockWithoutIdentityFails
+--- PASS: TestLockWithoutIdentityFails (0.01s)
+=== RUN   TestWrongRoleFails
+--- PASS: TestWrongRoleFails (0.01s)
+=== RUN   TestLandlordAttestedForOtherPropertyFails
+--- PASS: TestLandlordAttestedForOtherPropertyFails (0.01s)
+=== RUN   TestMissingAttributesFail
+--- PASS: TestMissingAttributesFail (0.01s)
+=== RUN   TestThirdPartyBindFails
+--- PASS: TestThirdPartyBindFails (0.01s)
+=== RUN   TestBindAfterActivationFails
+--- PASS: TestBindAfterActivationFails (0.01s)
+=== RUN   TestInvalidTermsAndDuplicateLease
+--- PASS: TestInvalidTermsAndDuplicateLease (0.01s)
+=== RUN   TestLockDeposit
+--- PASS: TestLockDeposit (0.01s)
+=== RUN   TestNonTenantLockFails
+--- PASS: TestNonTenantLockFails (0.01s)
+=== RUN   TestLockTwiceFails
+--- PASS: TestLockTwiceFails (0.01s)
+=== RUN   TestRentGoesDirectlyToLandlord
+--- PASS: TestRentGoesDirectlyToLandlord (0.01s)
+=== RUN   TestPayingTwoPeriodsAheadFails
+--- PASS: TestPayingTwoPeriodsAheadFails (0.01s)
+=== RUN   TestPayAfterLeaseEndFails
+--- PASS: TestPayAfterLeaseEndFails (0.01s)
+=== RUN   TestLeaseFullyPaidFails
+--- PASS: TestLeaseFullyPaidFails (0.01s)
+=== RUN   TestArrearsTracking
+--- PASS: TestArrearsTracking (0.01s)
+=== RUN   TestEscrowAccountsArePerLease
+--- PASS: TestEscrowAccountsArePerLease (0.01s)
+=== RUN   TestFailedTransferRollsBackLease
+--- PASS: TestFailedTransferRollsBackLease (0.01s)
+=== RUN   TestZeroClaimRefundsFullDeposit
+--- PASS: TestZeroClaimRefundsFullDeposit (0.02s)
+=== RUN   TestProposeBeforeLeaseEndFails
+--- PASS: TestProposeBeforeLeaseEndFails (0.01s)
+=== RUN   TestClaimWithoutEvidenceFails
+--- PASS: TestClaimWithoutEvidenceFails (0.01s)
+=== RUN   TestClaimExceedsDepositFails
+--- PASS: TestClaimExceedsDepositFails (0.01s)
+=== RUN   TestTenantProposeFails
+--- PASS: TestTenantProposeFails (0.01s)
+=== RUN   TestTenantAcceptsClaim
+--- PASS: TestTenantAcceptsClaim (0.01s)
+=== RUN   TestUnchallengedClaimFinalizesAfterWindow
+--- PASS: TestUnchallengedClaimFinalizesAfterWindow (0.02s)
+=== RUN   TestDisputeAfterWindowFails
+--- PASS: TestDisputeAfterWindowFails (0.01s)
+=== RUN   TestArbitratorReducesClaim
+--- PASS: TestArbitratorReducesClaim (0.02s)
+=== RUN   TestArbitratorExceedsClaimFails
+--- PASS: TestArbitratorExceedsClaimFails (0.02s)
+=== RUN   TestLandlordResolvesOwnDisputeFails
+--- PASS: TestLandlordResolvesOwnDisputeFails (0.02s)
+=== RUN   TestInactiveArbitratorDefaultsToTenantOnDamage
+--- PASS: TestInactiveArbitratorDefaultsToTenantOnDamage (0.02s)
+=== RUN   TestInactiveLandlordCannotFreezeDeposit
+--- PASS: TestInactiveLandlordCannotFreezeDeposit (0.01s)
+=== RUN   TestUnpaidRentDeductedWithoutDiscretion
+--- PASS: TestUnpaidRentDeductedWithoutDiscretion (0.01s)
+=== RUN   TestUnpaidRentPlusDamageCappedAtDeposit
+--- PASS: TestUnpaidRentPlusDamageCappedAtDeposit (0.01s)
+=== RUN   TestArrearsStillDeductedWhenArbitratorInactive
+--- PASS: TestArrearsStillDeductedWhenArbitratorInactive (0.02s)
+=== RUN   TestSettleTwiceFails
+--- PASS: TestSettleTwiceFails (0.01s)
+=== RUN   TestUnsolicitedTransfersDoNotChangeAllocation
+--- PASS: TestUnsolicitedTransfersDoNotChangeAllocation (0.01s)
+=== RUN   TestWithdrawNothingAndTwiceFails
+--- PASS: TestWithdrawNothingAndTwiceFails (0.01s)
+=== RUN   TestEscrowReleaseOnlyThroughRentalChaincode
+--- PASS: TestEscrowReleaseOnlyThroughRentalChaincode (0.01s)
+=== RUN   TestPropertySettlementConservesDeposit
+--- PASS: TestPropertySettlementConservesDeposit (4.20s)
+=== RUN   TestInvariantsUnderRandomSequences
+    rental_test.go:708: successful actions per route: map[10:220 12:143 3:126 4:33 5:21 6:6 7:6 8:2 9:171 fully-paid-settled:5629]
+--- PASS: TestInvariantsUnderRandomSequences (15.27s)
+PASS
+ok  	github.com/rental-escrow/chaincode/rental	19.947s

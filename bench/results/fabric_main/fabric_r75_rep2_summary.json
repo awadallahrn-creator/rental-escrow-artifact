@@ -1,0 +1,35 @@
+{
+  "platform": "fabric",
+  "label": "r75_rep2",
+  "offered_tps": 75,
+  "send_tps": 57.85,
+  "throughput_tps": 52.56666666666667,
+  "submitted_in_window": 3471,
+  "succeeded_in_window": 3237,
+  "failed_in_window": 0,
+  "timed_out_in_window": 0,
+  "submit_errors_in_window": 234,
+  "skipped_no_idle_lease": 1029,
+  "latency_mean_ms": 14960.536744516518,
+  "latency_p50_ms": 17033.77,
+  "latency_p95_ms": 18150.834,
+  "latency_p99_ms": 19844.095,
+  "latency_max_ms": 20658.16,
+  "window_s": 60,
+  "cpu_percent_of_host": {
+    "chaincode": 8.533159125049874,
+    "loadgen": 3.1166030398131377,
+    "orderers": 35.17428190120656,
+    "peers": 49.87398180021825
+  },
+  "rss_mb_mean": {
+    "chaincode": 46.54925847457627,
+    "loadgen": 65.53422934322033,
+    "orderers": 726.0907706567797,
+    "peers": 943.4254502118644
+  },
+  "failure_reasons": {
+    "rpc error: code = Aborted desc = failed to collect enough transaction endorsements, see attached details for more info": 234
+  },
+  "started_at": "2026-10-18T12:05:04Z"
+}

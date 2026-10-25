@@ -1,0 +1,11 @@
+platform,scenario,want_landlord,want_tenant,got_landlord,got_tenant,withdrawn_landlord,withdrawn_tenant,pass,note
+fabric,"S1 punctual tenant, no damage",0,1000,0,1000,0,1000,true,
+fabric,S2 damage claim accepted,300,700,300,700,300,700,true,
+fabric,S3 damage claim unchallenged,300,700,300,700,300,700,true,
+fabric,"S4 one period unpaid, claim disputed, award reduced",600,400,600,400,600,400,true,
+fabric,S5 landlord inactive,0,1000,0,1000,0,1000,true,
+fabric,S6 arbitrator inactive (one period unpaid),500,500,500,500,500,500,true,
+fabric,N1 expired certificate rejected,0,0,0,0,0,0,true,rejected (expired)
+fabric,N2 certificate from untrusted CA rejected,0,0,0,0,0,0,true,rejected (access denied)
+fabric,N3 certificate without role/DID attributes rejected,0,0,0,0,0,0,true,rejected (IdentityMismatch)
+fabric,N4 non-tenant rent payment rejected,0,0,0,0,0,0,true,rejected (Unauthorized)

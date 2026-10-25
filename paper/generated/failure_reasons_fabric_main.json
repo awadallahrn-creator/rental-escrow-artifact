@@ -1,0 +1,5 @@
+{
+ "rpc error: code = Aborted desc = failed to collect enough transaction endorsements, see attached details for more info": 2832,
+ "rpc error: code = Unavailable desc = insufficient number of orderers could successfully process transaction to satisfy quorum requirement": 39,
+ "validation:MVCC_READ_CONFLICT": 39
+}

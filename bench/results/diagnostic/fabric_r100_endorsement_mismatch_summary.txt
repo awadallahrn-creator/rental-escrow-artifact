@@ -1,0 +1,7 @@
+   9696 WARN [gateway.responsechecker] processEndorsement -> Proposal response mismatch: initial-endorser="peerN.orgN.example.com:N (OrgNMSP)" invoked-endorser="peerN.orgN.example.com:N (OrgNMSP)" type="write
+   8361 WARN [gateway.responsechecker] processEndorsement -> Proposal response mismatch: initial-endorser="peerN.orgN.example.com:N (OrgNMSP)" invoked-endorser="peerN.orgN.example.com:N (OrgNMSP)" type="read 
+   4559 WARN [gateway.responsechecker] processEndorsement -> Proposal response mismatch: initial-endorser="peerN.orgN.example.com:N (OrgNMSP)" invoked-endorser="peerN.orgN.example.com:N (OrgNMSP)" type="extra
+   3248 WARN [gateway] processEndorsement -> ProposalResponsePayloads do not match. See [gateway.responsechecker] log warnings for details.
+   3248 WARN [gateway.responsechecker] processEndorsement -> Compared to the initial endorser's response, the following log entries detail the differences in this invoked endorser's response. initial-endorser
+   3224 WARN [gateway.responsechecker] processEndorsement -> Proposal response mismatch: initial-endorser="peerN.orgN.example.com:N (OrgNMSP)" invoked-endorser="peerN.orgN.example.com:N (OrgNMSP)" type="missi
+   3224 WARN [gateway.responsechecker] processEndorsement -> Proposal response mismatch: initial-endorser="peerN.orgN.example.com:N (OrgNMSP)" invoked-endorser="peerN.orgN.example.com:N (OrgNMSP)" type="chain

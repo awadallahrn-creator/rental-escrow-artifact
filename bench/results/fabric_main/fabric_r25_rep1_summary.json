@@ -1,0 +1,33 @@
+{
+  "platform": "fabric",
+  "label": "r25_rep1",
+  "offered_tps": 25,
+  "send_tps": 25,
+  "throughput_tps": 25,
+  "submitted_in_window": 1500,
+  "succeeded_in_window": 1500,
+  "failed_in_window": 0,
+  "timed_out_in_window": 0,
+  "submit_errors_in_window": 0,
+  "skipped_no_idle_lease": 0,
+  "latency_mean_ms": 109.22044066666666,
+  "latency_p50_ms": 105.445,
+  "latency_p95_ms": 178.279,
+  "latency_p99_ms": 211.771,
+  "latency_max_ms": 277.338,
+  "window_s": 60,
+  "cpu_percent_of_host": {
+    "chaincode": 7.882986810108707,
+    "loadgen": 2.4748912078248266,
+    "orderers": 29.040390098550574,
+    "peers": 36.240073612222794
+  },
+  "rss_mb_mean": {
+    "chaincode": 43.22543697033898,
+    "loadgen": 34.47212658898305,
+    "orderers": 628.1285752118644,
+    "peers": 716.0583951271186
+  },
+  "failure_reasons": {},
+  "started_at": "2026-10-18T11:46:51Z"
+}

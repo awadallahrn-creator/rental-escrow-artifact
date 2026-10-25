@@ -1,0 +1,31 @@
+# Same organisation layout as fabric-samples test-network (BFT variant), plus a third peer org
+# so that endorsement involves three organisations as in the original manuscript.
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+        SANS: [localhost, 127.0.0.1]
+      - Hostname: orderer2
+        SANS: [localhost, 127.0.0.1]
+      - Hostname: orderer3
+        SANS: [localhost, 127.0.0.1]
+      - Hostname: orderer4
+        SANS: [localhost, 127.0.0.1]
+PeerOrgs:
+  - Name: Org1
+    Domain: org1.example.com
+    EnableNodeOUs: true
+    Template: {Count: 1, SANS: [localhost, 127.0.0.1]}
+    Users: {Count: 1}
+  - Name: Org2
+    Domain: org2.example.com
+    EnableNodeOUs: true
+    Template: {Count: 1, SANS: [localhost, 127.0.0.1]}
+    Users: {Count: 1}
+  - Name: Org3
+    Domain: org3.example.com
+    EnableNodeOUs: true
+    Template: {Count: 1, SANS: [localhost, 127.0.0.1]}
+    Users: {Count: 1}

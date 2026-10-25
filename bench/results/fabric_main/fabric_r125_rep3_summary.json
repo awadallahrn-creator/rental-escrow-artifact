@@ -1,0 +1,37 @@
+{
+  "platform": "fabric",
+  "label": "r125_rep3",
+  "offered_tps": 125,
+  "send_tps": 63.3,
+  "throughput_tps": 54.35,
+  "submitted_in_window": 3798,
+  "succeeded_in_window": 3277,
+  "failed_in_window": 1,
+  "timed_out_in_window": 0,
+  "submit_errors_in_window": 520,
+  "skipped_no_idle_lease": 3701,
+  "latency_mean_ms": 15217.224361000925,
+  "latency_p50_ms": 16905.843,
+  "latency_p95_ms": 19652.157,
+  "latency_p99_ms": 21269.705,
+  "latency_max_ms": 22266.227,
+  "window_s": 60,
+  "cpu_percent_of_host": {
+    "chaincode": 8.349728141618924,
+    "loadgen": 3.074899884488406,
+    "orderers": 34.79886698542977,
+    "peers": 51.74831512919512
+  },
+  "rss_mb_mean": {
+    "chaincode": 47.696702860169495,
+    "loadgen": 68.12175582627118,
+    "orderers": 737.799126059322,
+    "peers": 988.9465704449152
+  },
+  "failure_reasons": {
+    "rpc error: code = Aborted desc = failed to collect enough transaction endorsements, see attached details for more info": 497,
+    "rpc error: code = Unavailable desc = insufficient number of orderers could successfully process transaction to satisfy quorum requirement": 23,
+    "validation:MVCC_READ_CONFLICT": 1
+  },
+  "started_at": "2026-10-18T12:23:21Z"
+}

@@ -1,0 +1,11 @@
+platform,scenario,want_landlord,want_tenant,got_landlord,got_tenant,withdrawn_landlord,withdrawn_tenant,pass,note
+besu,"S1 punctual tenant, no damage",0,1000,0,1000,0,1000,true,
+besu,S2 damage claim accepted,300,700,300,700,300,700,true,
+besu,S3 damage claim unchallenged,300,700,300,700,300,700,true,
+besu,"S4 one period unpaid, claim disputed, award reduced",600,400,600,400,600,400,true,
+besu,S5 landlord inactive,0,1000,0,1000,0,1000,true,
+besu,S6 arbitrator inactive (one period unpaid),500,500,500,500,500,500,true,
+besu,N1 expired attestation rejected,0,0,0,0,0,0,true,rejected (revert)
+besu,N2 attestation from untrusted issuer rejected,0,0,0,0,0,0,true,rejected (revert)
+besu,N3 revoked attestation rejected,0,0,0,0,0,0,true,rejected (revert)
+besu,N4 non-tenant rent payment rejected,0,0,0,0,0,0,true,rejected (revert)

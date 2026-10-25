@@ -1,0 +1,11 @@
+{
+  "EthUnitTests": 44,
+  "EthFuzzRuns": "1000",
+  "EthInvariantRuns": 256,
+  "EthInvariantDepth": 200,
+  "FabUnitTests": 38,
+  "FabPropertyRuns": 300,
+  "FabInvariantRuns": 200,
+  "FabInvariantDepth": 200,
+  "SlitherFindings": 11
+}

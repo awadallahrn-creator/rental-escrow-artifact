@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\caption{Sensitivity runs (same workload and methodology as Table~\ref{tab:perf}).}
+\label{tab:sens}
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+Offered & Sent & Throughput & Mean latency & p95 latency & Failed & Node CPU \\
+(tx/s) & (tx/s) & (tx/s) & (s) & (s) & (\%) & (\%) \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Besu (QBFT, 1\,s block period)}} \\
+\addlinespace[2pt]
+25 & 25.0 & 25.0 $\pm$ 0.0 & 0.64 $\pm$ 0.01 & 1.09 & 0.0 & 31 \\
+50 & 50.0 & 50.0 $\pm$ 0.0 & 0.75 $\pm$ 0.03 & 1.20 & 0.0 & 47 \\
+75 & 75.0 & 75.0 $\pm$ 0.0 & 0.91 $\pm$ 0.02 & 1.38 & 0.0 & 65 \\
+100 & 100.0 & 100.0 $\pm$ 0.0 & 1.18 $\pm$ 0.16 & 2.11 & 0.0 & 82 \\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Fabric (SmartBFT, 2-of-3 endorsement)}} \\
+\addlinespace[2pt]
+25 & 25.0 & 25.0 $\pm$ 0.0 & 0.08 $\pm$ 0.00 & 0.12 & 0.0 & 64 \\
+50 & 50.0 & 50.0 $\pm$ 0.0 & 0.18 $\pm$ 0.03 & 0.29 & 0.0 & 87 \\
+75 & 69.9 & 61.1 $\pm$ 1.8 & 12.32 $\pm$ 1.44 & 14.86 & 1.0 & 93 \\
+100 & 73.2 & 68.8 $\pm$ 2.0 & 12.75 $\pm$ 0.03 & 14.97 & 5.4 & 93 \\
+\bottomrule
+\end{tabular}
+\end{table}

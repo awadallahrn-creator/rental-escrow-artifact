@@ -1,0 +1,68 @@
+[14:09:30] besu_main finished
+besu     S1 punctual tenant, no damage                           want L=   0 T=1000  got L=   0 T=1000  withdrawn L=   0 T=1000  true 
+besu     S2 damage claim accepted                                want L= 300 T= 700  got L= 300 T= 700  withdrawn L= 300 T= 700  true 
+besu     S3 damage claim unchallenged                            want L= 300 T= 700  got L= 300 T= 700  withdrawn L= 300 T= 700  true 
+besu     S4 one period unpaid, claim disputed, award reduced     want L= 600 T= 400  got L= 600 T= 400  withdrawn L= 600 T= 400  true 
+besu     S5 landlord inactive                                    want L=   0 T=1000  got L=   0 T=1000  withdrawn L=   0 T=1000  true 
+besu     S6 arbitrator inactive (one period unpaid)              want L= 500 T= 500  got L= 500 T= 500  withdrawn L= 500 T= 500  true 
+besu     N1 expired attestation rejected                         want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (revert)
+besu     N2 attestation from untrusted issuer rejected           want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (revert)
+besu     N3 revoked attestation rejected                         want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (revert)
+besu     N4 non-tenant rent payment rejected                     want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (revert)
+[14:13:38] besu e2e ok
+[14:13:44] network removed
+[14:13:54] node1 enode: enode://5374a8992a6acb547ab3a4d44ed455997636b8fd8908d36eeb5cdc7bb97c23b09026d53906361b77f7509c9b5a9eeaa836b354632f719cc31a8b0bc403ddc9e0@127.0.0.1:30303
+[14:14:18] QBFT producing blocks (height 3, block period 1s)
+deployed 50/1000 leases
+deployed 100/1000 leases
+deployed 150/1000 leases
+deployed 200/1000 leases
+deployed 250/1000 leases
+deployed 300/1000 leases
+deployed 350/1000 leases
+deployed 400/1000 leases
+deployed 450/1000 leases
+deployed 500/1000 leases
+deployed 550/1000 leases
+deployed 600/1000 leases
+deployed 650/1000 leases
+deployed 700/1000 leases
+deployed 750/1000 leases
+deployed 800/1000 leases
+deployed 850/1000 leases
+deployed 900/1000 leases
+deployed 950/1000 leases
+deployed 1000/1000 leases
+besu setup: 1000 leases active in 2m4s
+[14:40:56] network removed
+[14:40:56] besu_period1s finished
+[14:40:58] network removed
+[14:40:58] crypto material and genesis block generated
+[14:41:02] 4 BFT orderers joined channel
+[14:41:08] 3 peers joined channel
+[14:41:14] chaincode token committed (package token_1.0:afb1361e8559bbabc611ef7e4a0d02fe4573bdaa0fda07c8042c9f829fb7c15f, policy AND('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer'))
+[14:41:16] chaincode rental committed (package rental_1.0:78aa54da46abdf159def0ad0907a192b57df909e38eaa53768463d9830ba6ef4, policy AND('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer'))
+[14:41:46] network ready
+fabric   S1 punctual tenant, no damage                           want L=   0 T=1000  got L=   0 T=1000  withdrawn L=   0 T=1000  true 
+fabric   S2 damage claim accepted                                want L= 300 T= 700  got L= 300 T= 700  withdrawn L= 300 T= 700  true 
+fabric   S3 damage claim unchallenged                            want L= 300 T= 700  got L= 300 T= 700  withdrawn L= 300 T= 700  true 
+fabric   S4 one period unpaid, claim disputed, award reduced     want L= 600 T= 400  got L= 600 T= 400  withdrawn L= 600 T= 400  true 
+fabric   S5 landlord inactive                                    want L=   0 T=1000  got L=   0 T=1000  withdrawn L=   0 T=1000  true 
+fabric   S6 arbitrator inactive (one period unpaid)              want L= 500 T= 500  got L= 500 T= 500  withdrawn L= 500 T= 500  true 
+fabric   N1 expired certificate rejected                         want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (expired)
+fabric   N2 certificate from untrusted CA rejected               want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (access denied)
+fabric   N3 certificate without role/DID attributes rejected     want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (IdentityMismatch)
+fabric   N4 non-tenant rent payment rejected                     want L=   0 T=   0  got L=   0 T=   0  withdrawn L=   0 T=   0  true rejected (Unauthorized)
+[14:43:32] fabric e2e ok
+fabric setup: 1000 leases active in 1m17s
+[15:27:26] fabric_main finished
+[15:27:32] network removed
+[15:27:32] crypto material and genesis block generated
+[15:27:36] 4 BFT orderers joined channel
+[15:27:42] 3 peers joined channel
+[15:27:48] chaincode token committed (package token_1.0:6346e543a76b5f1273f4ed30170fd25c010d2d660f5599de24df97347f9f1f36, policy OutOf(2,'Org1MSP.peer','Org2MSP.peer','Org3MSP.peer'))
+[15:27:50] chaincode rental committed (package rental_1.0:1808c7abec751d07cfbc487ff9137bab05b4a313f4c7060446fcd78344af2b55, policy OutOf(2,'Org1MSP.peer','Org2MSP.peer','Org3MSP.peer'))
+[15:28:20] network ready
+fabric setup: 1000 leases active in 1m5s
+[15:53:48] network removed
+[15:53:48] pipeline done

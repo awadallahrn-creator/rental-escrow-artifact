@@ -1,0 +1,52 @@
+'forge clean' running (wd: /home/claude/rental-escrow)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /home/claude/rental-escrow)
+INFO:Detectors:
+Detector: reentrancy-balance
+Reentrancy in RentalAgreement.lockDeposit() (src/RentalAgreement.sol#188-203):
+	External call allowing reentrancy:
+	- token.safeTransferFrom(msg.sender,address(this),depositAmount) (src/RentalAgreement.sol#199)
+	Balance read before the call:
+	- before = token.balanceOf(address(this)) (src/RentalAgreement.sol#198)
+	Possible stale balance used after the call in a condition:
+	- token.balanceOf(address(this)) - before != depositAmount (src/RentalAgreement.sol#200)
+		- stale variable `before`
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities
+INFO:Detectors:
+Detector: timestamp
+IdentityRegistry.verify(IdentityRegistry.Attestation,bytes) (src/IdentityRegistry.sol#86-92) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > a.expiresAt (src/IdentityRegistry.sol#90)
+RentalAgreement.payRent() (src/RentalAgreement.sol#209-224) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= leaseEnd (src/RentalAgreement.sol#210)
+	- block.timestamp + periodLength < due (src/RentalAgreement.sol#214)
+RentalAgreement.proposeSettlement(uint256,bytes32) (src/RentalAgreement.sol#230-246) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < leaseEnd (src/RentalAgreement.sol#231)
+	- block.timestamp > uint256(leaseEnd) + proposalWindow (src/RentalAgreement.sol#232)
+RentalAgreement.disputeSettlement(bytes32) (src/RentalAgreement.sol#252-259) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > challengeDeadline (src/RentalAgreement.sol#253)
+RentalAgreement.finalizeSettlement() (src/RentalAgreement.sol#262-265) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp <= challengeDeadline (src/RentalAgreement.sol#263)
+RentalAgreement.resolveDispute(uint256) (src/RentalAgreement.sol#268-274) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > arbitrationDeadline (src/RentalAgreement.sol#270)
+RentalAgreement.claimAfterTimeout() (src/RentalAgreement.sol#280-289) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp <= uint256(leaseEnd) + proposalWindow (src/RentalAgreement.sol#282)
+	- block.timestamp <= arbitrationDeadline (src/RentalAgreement.sol#284)
+RentalAgreement.periodsDue() (src/RentalAgreement.sol#306-310) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= leaseEnd (src/RentalAgreement.sol#308)
+RentalAgreement.arrears() (src/RentalAgreement.sol#312-315) uses timestamp for comparisons
+	Dangerous comparisons:
+	- due > periodsPaid (src/RentalAgreement.sol#314)
+RentalAgreement._settle(uint256) (src/RentalAgreement.sol#318-337) uses timestamp for comparisons
+	Dangerous comparisons:
+	- unpaid < held (src/RentalAgreement.sol#322)
+	- damage < remaining (src/RentalAgreement.sol#324)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Slither:. analyzed (18 contracts with 102 detectors), 11 result(s) found

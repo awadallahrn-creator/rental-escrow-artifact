@@ -1,0 +1,29 @@
+{
+  "platform": "besu",
+  "label": "r150_rep1",
+  "offered_tps": 150,
+  "send_tps": 119.93333333333334,
+  "throughput_tps": 120.11666666666666,
+  "submitted_in_window": 7196,
+  "succeeded_in_window": 7196,
+  "failed_in_window": 0,
+  "timed_out_in_window": 0,
+  "submit_errors_in_window": 0,
+  "skipped_no_idle_lease": 1804,
+  "latency_mean_ms": 4628.144816425776,
+  "latency_p50_ms": 4632.869,
+  "latency_p95_ms": 6453.119,
+  "latency_p99_ms": 7958.363,
+  "latency_max_ms": 8964.548,
+  "window_s": 60,
+  "cpu_percent_of_host": {
+    "loadgen": 4.86652820396288,
+    "validators": 91.19740524686604
+  },
+  "rss_mb_mean": {
+    "loadgen": 33.30144332627118,
+    "validators": 4420.329184322034
+  },
+  "failure_reasons": {},
+  "started_at": "2026-10-18T10:38:23Z"
+}

@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{End-to-end functional verification on the live networks. Allocations are deposit shares in token units (deposit = 1{,}000, rent = 500 per period); \emph{recorded} is the share stored by the contract or chaincode, \emph{withdrawn} the amount actually received. N1--N4 must be rejected.}
+\label{tab:e2e}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright}Xcccc@{}}
+\toprule
+Scenario & Specified & Besu: recorded; & Fabric: recorded; & Pass \\
+ & L / T & withdrawn (L/T) & withdrawn (L/T) & \\
+\midrule
+S1 punctual tenant, no damage claim & 0 / 1000 & 0/1000; 0/1000 & 0/1000; 0/1000 & yes \\
+S2 damage claim accepted by tenant & 300 / 700 & 300/700; 300/700 & 300/700; 300/700 & yes \\
+S3 damage claim unchallenged, finalized after window & 300 / 700 & 300/700; 300/700 & 300/700; 300/700 & yes \\
+S4 one period unpaid; claim disputed; award reduced & 600 / 400 & 600/400; 600/400 & 600/400; 600/400 & yes \\
+S5 landlord inactive; tenant claims after timeout & 0 / 1000 & 0/1000; 0/1000 & 0/1000; 0/1000 & yes \\
+S6 one period unpaid; claim disputed; arbitrator inactive & 500 / 500 & 500/500; 500/500 & 500/500; 500/500 & yes \\
+N1 expired credential (attestation / certificate) & rejected & rejected (revert) & rejected (expired) & yes \\
+N2 credential from untrusted issuer & rejected & rejected (revert) & rejected (access denied) & yes \\
+N3 revoked attestation (Besu); certificate without role/DID attributes (Fabric) & rejected & rejected (revert) & rejected (IdentityMismatch) & yes \\
+N4 rent payment by a non-tenant & rejected & rejected (revert) & rejected (Unauthorized) & yes \\
+\bottomrule
+\end{tabularx}
+\end{table}

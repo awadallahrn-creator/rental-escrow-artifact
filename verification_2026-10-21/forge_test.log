@@ -1,0 +1,222 @@
+Compiling 1 files with Solc 0.8.24
+Solc 0.8.24 finished in 2.35s
+Compiler run successful!
+
+Ran 13 tests for test/RentalAgreement.t.sol:IdentityBindingTest
+[PASS] test_BindBothParties() (gas: 103413)
+[PASS] test_RevertWhen_AttestationExpired() (gas: 32651)
+[PASS] test_RevertWhen_AttestationForAnotherAddress() (gas: 24589)
+[PASS] test_RevertWhen_AttestationRevoked() (gas: 65206)
+[PASS] test_RevertWhen_BindAfterActivation() (gas: 222525)
+[PASS] test_RevertWhen_IssuerRemoved() (gas: 39639)
+[PASS] test_RevertWhen_LandlordAttestedForOtherProperty() (gas: 23552)
+[PASS] test_RevertWhen_LockWithoutIdentity() (gas: 69821)
+[PASS] test_RevertWhen_NonIssuerRevokes() (gas: 20567)
+[PASS] test_RevertWhen_TamperedAttestation() (gas: 32007)
+[PASS] test_RevertWhen_ThirdPartyBinds() (gas: 21980)
+[PASS] test_RevertWhen_UntrustedIssuer() (gas: 32886)
+[PASS] test_RevertWhen_WrongRole() (gas: 23560)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 8.67ms (7.66ms CPU time)
+
+Ran 21 tests for test/RentalAgreement.t.sol:SettlementTest
+[PASS] testFuzz_SettlementConservesDeposit(uint8,uint256,uint256,uint8) (runs: 1000, μ: 350458, ~: 322369)
+[PASS] test_ArbitratorReducesClaim() (gas: 668525)
+[PASS] test_ArrearsStillDeductedWhenArbitratorInactive() (gas: 632168)
+[PASS] test_BlockedTenantCannotFreezeLandlordShare() (gas: 510119)
+[PASS] test_InactiveArbitratorDefaultsToTenantOnDamage() (gas: 631279)
+[PASS] test_InactiveLandlordCannotFreezeDeposit() (gas: 532161)
+[PASS] test_RevertWhen_ArbitratorExceedsClaim() (gas: 576595)
+[PASS] test_RevertWhen_ClaimExceedsDeposit() (gas: 475840)
+[PASS] test_RevertWhen_ClaimWithoutEvidence() (gas: 475725)
+[PASS] test_RevertWhen_DisputeAfterWindow() (gas: 547241)
+[PASS] test_RevertWhen_LandlordResolvesOwnDispute() (gas: 574341)
+[PASS] test_RevertWhen_ProposeBeforeLeaseEnd() (gas: 20552)
+[PASS] test_RevertWhen_SettleTwice() (gas: 534628)
+[PASS] test_RevertWhen_TenantProposes() (gas: 470049)
+[PASS] test_RevertWhen_WithdrawNothing() (gas: 18123)
+[PASS] test_RevertWhen_WithdrawTwice() (gas: 523074)
+[PASS] test_TenantAcceptsClaim() (gas: 639638)
+[PASS] test_UnchallengedClaimFinalizesAfterWindow() (gas: 647366)
+[PASS] test_UnpaidRentDeductedWithoutDiscretion() (gas: 461068)
+[PASS] test_UnpaidRentPlusDamageCappedAtDeposit() (gas: 565541)
+[PASS] test_ZeroClaimRefundsFullDeposit() (gas: 526136)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 312.65ms (317.43ms CPU time)
+
+Ran 11 tests for test/RentalAgreement.t.sol:DepositAndRentTest
+[PASS] test_ArrearsTracking() (gas: 312575)
+[PASS] test_LockDeposit() (gas: 222198)
+[PASS] test_RentGoesDirectlyToLandlord() (gas: 349716)
+[PASS] test_RevertWhen_InvalidTerms() (gas: 134505)
+[PASS] test_RevertWhen_LeaseFullyPaid() (gas: 657154)
+[PASS] test_RevertWhen_LockTwice() (gas: 216956)
+[PASS] test_RevertWhen_NonStandardToken() (gas: 2573253)
+[PASS] test_RevertWhen_NonTenantLocks() (gas: 103057)
+[PASS] test_RevertWhen_PayAfterLeaseEnd() (gas: 221394)
+[PASS] test_RevertWhen_PayingTwoPeriodsAhead() (gas: 309507)
+[PASS] test_UnsolicitedTransfersDoNotChangeAllocation() (gas: 821520)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 7.41ms (6.42ms CPU time)
+
+Ran 5 tests for test/Invariants.t.sol:LeaseInvariantTest
+[PASS] invariant_BalanceCoversLiabilities() (runs: 256, calls: 51200, reverts: 0)
+
+╭--------------+---------------+-------+---------+----------╮
+| Contract     | Selector      | Calls | Reverts | Discards |
++===========================================================+
+| LeaseHandler | accept        | 3935  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | dispute       | 4026  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | finalize      | 3981  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payOnSchedule | 3917  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payRent       | 3954  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | propose       | 3835  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | resolve       | 3952  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | strangerCalls | 3892  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | timeout       | 3864  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toLeaseEnd    | 3910  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toNextDueDate | 4066  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | warp          | 3976  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | withdraw      | 3892  | 0       | 0        |
+╰--------------+---------------+-------+---------+----------╯
+
+[PASS] invariant_DepositConserved() (runs: 256, calls: 51200, reverts: 0)
+
+╭--------------+---------------+-------+---------+----------╮
+| Contract     | Selector      | Calls | Reverts | Discards |
++===========================================================+
+| LeaseHandler | accept        | 3862  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | dispute       | 3991  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | finalize      | 3883  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payOnSchedule | 3853  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payRent       | 3929  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | propose       | 4023  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | resolve       | 4020  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | strangerCalls | 3938  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | timeout       | 3994  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toLeaseEnd    | 3895  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toNextDueDate | 3909  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | warp          | 3893  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | withdraw      | 4010  | 0       | 0        |
+╰--------------+---------------+-------+---------+----------╯
+
+[PASS] invariant_LandlordBounded() (runs: 256, calls: 51200, reverts: 0)
+
+╭--------------+---------------+-------+---------+----------╮
+| Contract     | Selector      | Calls | Reverts | Discards |
++===========================================================+
+| LeaseHandler | accept        | 4031  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | dispute       | 3978  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | finalize      | 3936  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payOnSchedule | 3926  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payRent       | 4010  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | propose       | 3892  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | resolve       | 4043  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | strangerCalls | 3806  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | timeout       | 4054  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toLeaseEnd    | 3867  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toNextDueDate | 3900  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | warp          | 3879  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | withdraw      | 3878  | 0       | 0        |
+╰--------------+---------------+-------+---------+----------╯
+
+[PASS] invariant_NoOverpayment() (runs: 256, calls: 51200, reverts: 0)
+
+╭--------------+---------------+-------+---------+----------╮
+| Contract     | Selector      | Calls | Reverts | Discards |
++===========================================================+
+| LeaseHandler | accept        | 4034  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | dispute       | 3902  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | finalize      | 3903  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payOnSchedule | 3981  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payRent       | 3895  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | propose       | 3890  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | resolve       | 3990  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | strangerCalls | 3851  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | timeout       | 3955  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toLeaseEnd    | 4002  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toNextDueDate | 3831  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | warp          | 3943  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | withdraw      | 4023  | 0       | 0        |
+╰--------------+---------------+-------+---------+----------╯
+
+[PASS] invariant_StateMonotonic() (runs: 256, calls: 51200, reverts: 0)
+
+╭--------------+---------------+-------+---------+----------╮
+| Contract     | Selector      | Calls | Reverts | Discards |
++===========================================================+
+| LeaseHandler | accept        | 3870  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | dispute       | 3936  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | finalize      | 3881  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payOnSchedule | 3923  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | payRent       | 3882  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | propose       | 4013  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | resolve       | 3972  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | strangerCalls | 4002  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | timeout       | 3899  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toLeaseEnd    | 4039  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | toNextDueDate | 3916  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | warp          | 3994  | 0       | 0        |
+|--------------+---------------+-------+---------+----------|
+| LeaseHandler | withdraw      | 3873  | 0       | 0        |
+╰--------------+---------------+-------+---------+----------╯
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 12.35s (24.72s CPU time)
+
+Ran 4 test suites in 12.36s (12.68s CPU time): 50 tests passed, 0 failed, 0 skipped (50 total tests)
