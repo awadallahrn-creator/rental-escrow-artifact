@@ -1,7 +1,7 @@
 \begin{table}[t]
 \centering
 \small
-\caption{Gas used per transaction, read from transaction receipts (Cancun rules, solc 0.8.24, optimiser 200 runs). $n$ is the number of receipts; ranges arise from cold/warm storage access.}
+\caption{Gas used per transaction in the five lease scenarios of Table~\ref{tab:lifecycle}, read from transaction receipts on a local node with Cancun rules (contracts compiled for Shanghai; solc 0.8.24, optimiser 200 runs). $n$ is the number of receipts (101 in total). Not listed are the three one-off setup receipts: registry deployment (873{,}090 gas), issuer registration (47{,}271) and test-token minting. Ranges reflect different code paths (a zero versus a positive claim), the first payment to a landlord without a token balance (\texttt{payRent}), the withdrawing party (\texttt{withdraw}) and calldata that varies between runs (\texttt{bindIdentity}).}
 \label{tab:gas}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule

@@ -520,6 +520,32 @@ func TestUnsolicitedTransfersDoNotChangeAllocation(t *testing.T) {
 	}
 }
 
+// L1 bound: each timeout is enabled only strictly after its deadline, and the latest deadline is
+// LeaseEnd + proposal + challenge + arbitration window.
+func TestTimeoutBoundariesAreStrict(t *testing.T) {
+	e := newEnv(t)
+	endFullyPaid(e)
+	e.now = e.lease().LeaseEnd + propWin // t == proposal deadline
+	e.fails(e.call(e.other, "ClaimAfterTimeout"), "TooEarly")
+	e.must(e.call(e.landlord, "ProposeSettlement", "300000000", "ipfs://r"))
+
+	e.now = e.lease().ChallengeDeadline // t == challenge deadline
+	e.fails(e.call(e.other, "FinalizeSettlement"), "TooEarly")
+	e.must(e.call(e.tenant, "DisputeSettlement", "ipfs://t"))
+
+	l := e.lease()
+	e.now = l.ArbitrationDeadline // t == arbitration deadline
+	e.fails(e.call(e.other, "ClaimAfterTimeout"), "TooEarly")
+	if l.ArbitrationDeadline != l.LeaseEnd+propWin+chalWin+arbWin {
+		t.Fatalf("latest deadline %d, want %d", l.ArbitrationDeadline, l.LeaseEnd+propWin+chalWin+arbWin)
+	}
+	e.now++
+	e.must(e.call(e.other, "ClaimAfterTimeout"))
+	if e.lease().State != rental.StateSettled {
+		t.Fatal("lease not settled after the latest deadline")
+	}
+}
+
 func TestWithdrawNothingAndTwiceFails(t *testing.T) {
 	e := newEnv(t)
 	e.fails(e.call(e.tenant, "Withdraw"), "NothingToWithdraw")

@@ -1,0 +1,91 @@
+{
+  "node": "anvil Version: 1.5.1-stable",
+  "hardfork": "shanghai",
+  "solc": "0.8.24, optimizer 200 runs",
+  "setup_one_off": {
+    "deploy registry": 873090,
+    "addIssuer": 47271,
+    "mint test funds": 68416
+  },
+  "per_function": {
+    "constructor": {
+      "n": 5,
+      "min": 1972593,
+      "max": 1972593,
+      "mean": 1972593
+    },
+    "bindIdentity": {
+      "n": 10,
+      "min": 66308,
+      "max": 66742,
+      "mean": 66529
+    },
+    "approve": {
+      "n": 5,
+      "min": 46679,
+      "max": 46679,
+      "mean": 46679
+    },
+    "lockDeposit": {
+      "n": 5,
+      "min": 135067,
+      "max": 135067,
+      "mean": 135067
+    },
+    "payRent": {
+      "n": 59,
+      "min": 75320,
+      "max": 92420,
+      "mean": 75610
+    },
+    "proposeSettlement": {
+      "n": 4,
+      "min": 83874,
+      "max": 100254,
+      "mean": 96159
+    },
+    "withdraw": {
+      "n": 8,
+      "min": 39852,
+      "max": 42215,
+      "mean": 40738
+    },
+    "acceptSettlement": {
+      "n": 1,
+      "min": 124953,
+      "max": 124953,
+      "mean": 124953
+    },
+    "finalizeSettlement": {
+      "n": 1,
+      "min": 127032,
+      "max": 127032,
+      "mean": 127032
+    },
+    "disputeSettlement": {
+      "n": 1,
+      "min": 55851,
+      "max": 55851,
+      "mean": 55851
+    },
+    "resolveDispute": {
+      "n": 1,
+      "min": 128553,
+      "max": 128553,
+      "mean": 128553
+    },
+    "claimAfterTimeout": {
+      "n": 1,
+      "min": 83194,
+      "max": 83194,
+      "mean": 83194
+    }
+  },
+  "per_scenario_total": {
+    "S1 clean": 3332055,
+    "S2 accepted claim": 3498503,
+    "S3 unchallenged claim": 3500594,
+    "S4 disputed + arrears": 3482646,
+    "S5 landlord inactive": 3314287
+  }
+}

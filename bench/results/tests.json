@@ -1,9 +1,9 @@
 {
-  "EthUnitTests": 44,
+  "EthUnitTests": 45,
   "EthFuzzRuns": "1000",
   "EthInvariantRuns": 256,
   "EthInvariantDepth": 200,
-  "FabUnitTests": 38,
+  "FabUnitTests": 39,
   "FabPropertyRuns": 300,
   "FabInvariantRuns": 200,
   "FabInvariantDepth": 200,

@@ -7,14 +7,17 @@ Ledgers"* (Journal of Engineering Research, JER-D-26-01274, revised version).
 Every table, figure and number in the revised manuscript is generated from the raw data in this
 repository by `bench/analyze.py`.
 
+Archived release (Zenodo): https://doi.org/10.5281/zenodo.23639391
+
 ## Layout
 
 | Path | Content |
 |---|---|
 | `src/` | Solidity: `IdentityRegistry.sol` (EIP-712 attestations, issuer governance, revocation), `RentalAgreement.sol` (lease protocol) |
 | `test/` | Foundry unit tests, property-based test, stateful invariant suite, test tokens |
-| `scripts/measure_gas.py` | Five complete leases on a local EVM node; gas from receipts |
-| `results/` | Gas receipts and summary, Slither report |
+| `scripts/measure_gas.py` | Five complete leases on a local EVM node; gas from receipts (`--hardfork`, `--out`) |
+| `scripts/gas_fork_check.sh`, `scripts/compare_gas.py` | Gas re-measured under Shanghai rules and compared with the reported Cancun figures |
+| `results/` | Gas receipts and summary, Slither report, `gas_fork_check/` (fork-check runs) |
 | `fabric/chaincode/` | Go chaincode: `token` and `rental` (same protocol), unit/property/invariant tests, in-memory Fabric test ledger |
 | `bench/fabric/` | Fabric 3.1.1 network: 4 SmartBFT orderers, 3 peer organizations, TLS, chaincode-as-a-service |
 | `bench/besu/` | Besu 24.12.2 network: 4 QBFT validators |
@@ -22,7 +25,8 @@ repository by `bench/analyze.py`.
 | `bench/run_sweep.sh`, `bench/pipeline.sh` | Measurement programme |
 | `bench/results/` | Raw benchmark data: one CSV row per transaction, one JSON summary per run, end-to-end outputs |
 | `bench/analyze.py` | Generates all manuscript tables, figures and numbers (`paper/generated/`, `paper/figures/`) |
-| `paper/` | Manuscript source (LaTeX, `elsarticle`) and verified bibliography |
+| `paper/` | Inputs used by the manuscript: bibliography (`refs.bib`), generated tables and number macros (`generated/`) and the performance figure (`figures/`). The manuscript source itself is not included. |
+| `verification_*/` | Logs of the test runs, table regeneration and independent recomputation |
 
 ## Protocol in brief
 
@@ -55,6 +59,21 @@ python3 scripts/measure_gas.py   # -> results/gas_receipts.csv, results/gas_summ
 slither . --filter-paths "lib/|test/"
 ```
 
+### Reproducing the Shanghai gas check
+The contracts are compiled for Shanghai (`foundry.toml`); the reported gas figures were measured on
+Anvil with Cancun rules. The fork check re-measures the five leases under Shanghai rules and once more
+under Cancun rules, and compares both runs with `results/gas_receipts.csv`:
+```bash
+forge build
+scripts/gas_fork_check.sh            # -> results/gas_fork_check/rerun/{shanghai,cancun_rerun}/, comparison.txt
+```
+All receipts are identical across fork rules except `bindIdentity`, whose calldata contains a signed
+attestation that differs between runs; its gas varies by 12–24 gas from run to run under either rule
+set, so the number of differing `bindIdentity` receipts changes between reruns. The run reported in
+the manuscript (98 of 104 receipts identical under Shanghai; six `bindIdentity` receipts differing by
+12 gas) is stored in `results/gas_fork_check/reported_2026-10-26/`; a later rerun is in
+`results/gas_fork_check/rerun_2026-10-27/`.
+
 ### Fabric chaincode
 Requirements: Go ≥ 1.24.
 ```bash
@@ -78,10 +97,24 @@ unchanged from `fabric-samples` (BFT test network) and the Besu QBFT tutorial; b
 that it does not bind (Besu gas limit; Fabric 3.1.1 release-default batch size); the peer
 `TimeWindowCheck` filter is enabled as in the Fabric 3.1.1 release configuration.
 
-## Revision record
+## Notes on the measurements
 
-`CHANGELOG_2026-10-21.md` lists the final corrections; `verification_2026-10-21/` holds the test,
-analysis and build logs of the final run and the diff against the earlier revision package.
+- `results/gas_receipts.csv` has 104 receipts: 101 from the five lease scenarios and three one-off
+  setup transactions (registry deployment, issuer registration, test-token minting). All scenarios use
+  the same landlord account, so only the first payment of S1 (92,420 gas) writes a zero balance slot.
+- The load generator skips a scheduled submission when all 1,000 leases have a payment in flight
+  (`skipped_no_idle_lease` in each run summary). This occurred only beyond saturation (Besu at 125 and
+  150 tx/s, Fabric from 75 tx/s); latency and failure rate then refer to the payments actually sent.
+- `verification_2026-10-26/` and `verification_2026-10-27/` contain the logs of the final test runs
+  (45 EVM unit tests, 1 property-based test, 5 invariants; 39 Fabric unit tests, property-based test and
+  invariant suite) and an independent recomputation of the performance figures from the raw CSV files.
+
+## Licence
+
+Code (contracts, chaincode, tests, scripts, load generator, network configurations): MIT, see
+`LICENSE`. Data and generated outputs (`bench/results/`, `results/`, `paper/generated/`,
+`paper/figures/`, `verification_*/`): CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/).
+Vendored dependencies under `lib/` keep their own licences.
 
 ## Scope
 

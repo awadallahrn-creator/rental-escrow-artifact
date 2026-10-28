@@ -6,10 +6,14 @@ Every figure is read from the `gasUsed` field of the mined transaction receipt, 
 includes the 21,000 intrinsic cost, calldata cost and execution cost exactly as a user
 would pay on an EVM chain with the same hardfork rules.
 
-Usage:  python3 scripts/measure_gas.py            (from the project root, after `forge build`)
-Output: results/gas_receipts.csv      one row per transaction
-        results/gas_summary.json      per-function statistics and per-scenario totals
+Usage:  python3 scripts/measure_gas.py [--hardfork cancun] [--out results]
+        (from the project root, after `forge build`)
+Output: <out>/gas_receipts.csv      one row per transaction
+        <out>/gas_summary.json      per-function statistics and per-scenario totals
+The defaults (Cancun rules, results/) produce the figures reported in the manuscript; the fork
+check runs the same script with --hardfork shanghai (see scripts/gas_fork_check.sh).
 """
+import argparse
 import csv
 import json
 import os
@@ -126,8 +130,12 @@ def withdraw_all(scenario, lease, keys, addrs):
 
 
 def main():
-    os.makedirs("results", exist_ok=True)
-    anvil = subprocess.Popen([ANVIL, "--silent", "--hardfork", "cancun"], stdout=subprocess.DEVNULL)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hardfork", default="cancun")
+    ap.add_argument("--out", default="results")
+    args = ap.parse_args()
+    os.makedirs(args.out, exist_ok=True)
+    anvil = subprocess.Popen([ANVIL, "--silent", "--hardfork", args.hardfork], stdout=subprocess.DEVNULL)
     time.sleep(2)
     try:
         roles = ["governor", "issuer", "landlord", "tenant", "arbitrator"]
@@ -186,7 +194,7 @@ def main():
     finally:
         anvil.terminate()
 
-    with open("results/gas_receipts.csv", "w", newline="") as f:
+    with open(os.path.join(args.out, "gas_receipts.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["scenario", "step", "function", "gas_used", "tx_hash"])
         w.writeheader()
         w.writerows(rows)
@@ -203,10 +211,10 @@ def main():
         if r["scenario"] != "setup":
             per_scenario[r["scenario"]] = per_scenario.get(r["scenario"], 0) + r["gas_used"]
     setup = {r["step"]: r["gas_used"] for r in rows if r["scenario"] == "setup"}
-    summary = {"node": sh(ANVIL, "--version").splitlines()[0], "hardfork": "cancun",
+    summary = {"node": sh(ANVIL, "--version").splitlines()[0], "hardfork": args.hardfork,
                "solc": "0.8.24, optimizer 200 runs", "setup_one_off": setup,
                "per_function": per_function, "per_scenario_total": per_scenario}
-    with open("results/gas_summary.json", "w") as f:
+    with open(os.path.join(args.out, "gas_summary.json"), "w") as f:
         json.dump(summary, f, indent=2)
     print(json.dumps(summary, indent=2))
 

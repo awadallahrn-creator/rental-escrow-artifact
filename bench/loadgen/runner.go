@@ -6,8 +6,8 @@ package main
 // landlord and tenant. Load is open-loop at a fixed offered rate R (one submission every 1/R s),
 // as in Hyperledger Caliper's fixed-rate controller. A lease has at most one payment in flight
 // (a tenant pays one period at a time), so each submission goes to the least recently used idle
-// lease. If no lease is idle the submission is counted as "skipped" (client-side saturation);
-// K is chosen so that this does not occur.
+// lease. If no lease is idle the submission is skipped and counted (skipped_no_idle_lease).
+// This occurs only beyond saturation; the generator then behaves as a closed loop with K clients.
 //
 // Latency (Hyperledger PSWG definition): time from the moment the client starts submitting a
 // transaction until the client observes it committed in a block on the node it is connected to.

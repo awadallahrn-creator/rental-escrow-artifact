@@ -1,0 +1,15 @@
+receipts: 104
+Shanghai vs reported Cancun: 98 identical, 6 different
+  S1 clean | bindIdentity (landlord): 66730 -> 66742 (+12)
+  S1 clean | bindIdentity (tenant): 66308 -> 66320 (+12)
+  S2 accepted claim | bindIdentity (landlord): 66730 -> 66742 (+12)
+  S3 unchallenged claim | bindIdentity (tenant): 66320 -> 66308 (-12)
+  S4 disputed + arrears | bindIdentity (landlord): 66742 -> 66730 (-12)
+  S5 landlord inactive | bindIdentity (tenant): 66308 -> 66320 (+12)
+second Cancun run vs reported Cancun: 99 identical, 5 different
+  S1 clean | bindIdentity (tenant): 66308 -> 66320 (+12)
+  S2 accepted claim | bindIdentity (landlord): 66730 -> 66742 (+12)
+  S3 unchallenged claim | bindIdentity (landlord): 66742 -> 66718 (-24)
+  S5 landlord inactive | bindIdentity (landlord): 66730 -> 66742 (+12)
+  S5 landlord inactive | bindIdentity (tenant): 66308 -> 66320 (+12)
+functions with differences: bindIdentity

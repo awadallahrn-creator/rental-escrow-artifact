@@ -325,6 +325,37 @@ contract SettlementTest is BaseTest {
         assertEq(lease.refundedToTenant(), 700e6);
     }
 
+    /// L1 bound: each timeout is enabled only strictly after its deadline, and the latest deadline
+    /// is leaseEnd + proposal + challenge + arbitration window.
+    function test_TimeoutBoundariesAreStrict() public {
+        _endFullyPaid();
+
+        vm.warp(uint256(lease.leaseEnd()) + PROPOSAL_WINDOW); // t == proposal deadline
+        vm.expectRevert(RentalAgreement.TooEarly.selector);
+        lease.claimAfterTimeout();
+        vm.prank(landlord);
+        lease.proposeSettlement(300e6, REPORT); // still allowed at the deadline
+
+        vm.warp(lease.challengeDeadline()); // t == challenge deadline
+        vm.expectRevert(RentalAgreement.TooEarly.selector);
+        lease.finalizeSettlement();
+        vm.prank(tenant);
+        lease.disputeSettlement(TENANT_REPORT); // still allowed at the deadline
+
+        vm.warp(lease.arbitrationDeadline()); // t == arbitration deadline
+        vm.expectRevert(RentalAgreement.TooEarly.selector);
+        lease.claimAfterTimeout();
+        assertEq(
+            uint256(lease.arbitrationDeadline()),
+            uint256(lease.leaseEnd()) + PROPOSAL_WINDOW + CHALLENGE_WINDOW + ARBITRATION_WINDOW
+        );
+
+        vm.warp(uint256(lease.arbitrationDeadline()) + 1);
+        vm.prank(makeAddr("anyone"));
+        lease.claimAfterTimeout();
+        assertEq(uint8(lease.state()), uint8(RentalAgreement.State.Settled));
+    }
+
     function test_UnchallengedClaimFinalizesAfterWindow() public {
         _endFullyPaid();
         vm.prank(landlord);

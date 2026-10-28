@@ -8,3 +8,4 @@ paper/*.out
 paper/*.spl
 paper/*.blg
 paper/build.log
+results/gas_fork_check/rerun/

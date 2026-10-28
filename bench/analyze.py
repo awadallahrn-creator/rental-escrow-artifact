@@ -122,6 +122,8 @@ for exp, rows in data.items():
         for k, v in r["reasons"].items():
             all_reasons[k] += v
     json.dump(dict(all_reasons), open(os.path.join(GEN, f"failure_reasons_{exp}.json"), "w"), indent=1)
+    macro(f"{tag}UnavailFail", fint(sum(v for k, v in all_reasons.items() if "insufficient number of orderers" in k)))
+    macro(f"{tag}MvccFail", fint(sum(v for k, v in all_reasons.items() if "MVCC_READ_CONFLICT" in k)))
     tot = sum(all_reasons.values())
     if tot:
         endorse = sum(v for k, v in all_reasons.items() if "endorsement" in k)
@@ -156,11 +158,13 @@ def perf_table(exp_list, fname, caption, label):
 
 perf_table(["besu_main", "fabric_main"], "perf_main_table.tex",
            "Performance under fixed offered load (rent payments). Mean $\\pm$ standard deviation over three "
-           "repetitions of 60\\,s each. \\emph{Sent} falls below \\emph{Offered} when all 1{,}000 leases already "
-           "have a payment in flight (a tenant pays one period at a time). Latency is client-observed "
-           "submit-to-commit time; \\emph{Failed} counts transactions rejected at endorsement/submission or "
-           "invalidated at commit; CPU is the share of total host capacity used by the blockchain nodes "
-           "(all cores = 100\\%).", "tab:perf")
+           "repetitions of 60\\,s each; p95 is the mean of the per-run 95th percentiles. \\emph{Sent} falls below "
+           "\\emph{Offered} when all 1{,}000 leases already have a payment in flight (a tenant pays one period at a "
+           "time); the scheduled submission is then skipped, so beyond saturation latency and failure rate refer to the "
+           "payments actually sent. Latency is client-observed submit-to-commit time of committed payments; "
+           "\\emph{Failed} is the share of payments sent in the window that were rejected at endorsement or "
+           "submission, invalidated at commit, or not committed within the drain period; CPU is the share of total "
+           "host capacity used by the blockchain nodes (all cores = 100\\%).", "tab:perf")
 perf_table(["besu_period1s", "fabric_majority"], "perf_sens_table.tex",
            "Sensitivity runs (same workload and methodology as Table~\\ref{tab:perf}).", "tab:sens")
 
@@ -209,8 +213,14 @@ names = {"constructor": "Deploy lease contract", "bindIdentity": "\\texttt{bindI
          "disputeSettlement": "\\texttt{disputeSettlement}", "resolveDispute": "\\texttt{resolveDispute}",
          "claimAfterTimeout": "\\texttt{claimAfterTimeout}", "withdraw": "\\texttt{withdraw} (per party)"}
 lines = [r"\begin{table}[t]", r"\centering", r"\small",
-         r"\caption{Gas used per transaction, read from transaction receipts (Cancun rules, solc 0.8.24, optimiser "
-         r"200 runs). $n$ is the number of receipts; ranges arise from cold/warm storage access.}",
+         r"\caption{Gas used per transaction in the five lease scenarios of Table~\ref{tab:lifecycle}, read from "
+         r"transaction receipts on a local node with Cancun rules (contracts compiled for Shanghai; solc 0.8.24, "
+         r"optimiser 200 runs). $n$ is the number of receipts (" + str(sum(v["n"] for v in pf.values())) + r" in total). "
+         r"Not listed are the three one-off setup receipts: registry deployment (" + fint(gas["setup_one_off"]["deploy registry"]) +
+         r" gas), issuer registration (" + fint(gas["setup_one_off"]["addIssuer"]) + r") and test-token minting. "
+         r"Ranges reflect different code paths (a zero versus a positive claim), the first payment to a landlord "
+         r"without a token balance (\texttt{payRent}), the withdrawing party (\texttt{withdraw}) and calldata that "
+         r"varies between runs (\texttt{bindIdentity}).}",
          r"\label{tab:gas}", r"\begin{tabular}{@{}lrrrr@{}}", r"\toprule",
          r"Transaction & $n$ & Min & Mean & Max \\", r"\midrule"]
 for k, label in names.items():
@@ -229,7 +239,10 @@ scen_names = {"S1 clean": "S1: punctual tenant, no damage", "S2 accepted claim":
               "S4 disputed + arrears": "S4: one period unpaid, claim disputed, award reduced",
               "S5 landlord inactive": "S5: landlord inactive, tenant reclaims after timeout"}
 lines = [r"\begin{table}[t]", r"\centering", r"\small",
-         r"\caption{Total gas for a complete 12-period lease, from deployment to final withdrawal.}",
+         r"\caption{Total gas for a complete 12-period lease, from deployment of the lease contract to the final "
+         r"withdrawal, excluding the one-off network setup (Table~\ref{tab:gas}). All scenarios used the same "
+         r"landlord account: only S1 contains a first payment to a landlord without a token balance ("
+         + fint(pf["payRent"]["max"]) + r" gas); in S2--S5 every payment cost " + fint(pf["payRent"]["min"]) + r" gas.}",
          r"\label{tab:lifecycle}", r"\begin{tabular}{@{}lr@{}}", r"\toprule", r"Scenario & Total gas \\", r"\midrule"]
 for k, label in scen_names.items():
     lines.append(f"{label} & {sc[k]:,} \\\\".replace(",", "{,}"))
@@ -244,19 +257,24 @@ macro("GasRentShare", fint(100 * rent_s1 / s1))
 macro("GasRegistryDeploy", fint(gas["setup_one_off"]["deploy registry"]))
 macro("GasReceipts", fint(sum(v["n"] for v in pf.values())
                           + len(gas["setup_one_off"])))
-# parametric cost of one payRent: gas x price; price grid is an assumption grid, not market data
+# parametric cost of one payRent and of a complete lease (S1); the price grid is an assumption grid, not market data
 grid_gwei = [1, 10, 50]
 grid_eth = [2000, 4000]
 lines = [r"\begin{table}[t]", r"\centering", r"\small",
-         r"\caption{Illustrative fee of one \texttt{payRent} transaction (" + fint(pf["payRent"]["min"]) +
-         r" gas) as a function of an assumed gas price and an assumed ETH/USD rate. The grid is a set of "
-         r"assumptions for scale, not market data; fees on a public network vary with demand.}",
-         r"\label{tab:fee}", r"\begin{tabular}{@{}r" + "r" * len(grid_eth) + r"@{}}", r"\toprule",
-         r"Gas price (gwei) & " + " & ".join(f"ETH = USD {e:,}".replace(",", "{,}") for e in grid_eth) + r" \\",
+         r"\caption{Illustrative fee in USD of one \texttt{payRent} transaction (" + fint(pf["payRent"]["min"]) +
+         r" gas) and of the complete lease S1 (" + fint(s1) + r" gas, excluding one-off network setup) for assumed "
+         r"gas prices and ETH/USD rates. The grid is a set of assumptions for scale, not current market prices; fees "
+         r"on a public network vary with demand.}",
+         r"\label{tab:fee}", r"\begin{tabular}{@{}r" + "r" * (2 * len(grid_eth)) + r"@{}}", r"\toprule",
+         r" & \multicolumn{" + str(len(grid_eth)) + r"}{c}{One \texttt{payRent}} & \multicolumn{" + str(len(grid_eth)) +
+         r"}{c}{Complete lease S1} \\",
+         r"\cmidrule(lr){2-" + str(1 + len(grid_eth)) + r"}\cmidrule(l){" + str(2 + len(grid_eth)) + "-" + str(1 + 2 * len(grid_eth)) + r"}",
+         r"Gas price & " + " & ".join(f"1 ETH = {e:,}".replace(",", "{,}") for e in grid_eth * 2) + r" \\",
+         r"(gwei) & " + " & ".join("USD" for _ in grid_eth * 2) + r" \\",
          r"\midrule"]
 for g in grid_gwei:
-    cells = [f"{pf['payRent']['min'] * g * 1e-9 * e:.3f}" for e in grid_eth]
-    lines.append(f"{g} & " + " & ".join("USD " + c for c in cells) + r" \\")
+    cells = [f"{pf['payRent']['min'] * g * 1e-9 * e:.3f}" for e in grid_eth] + [f"{s1 * g * 1e-9 * e:,.2f}".replace(",", "{,}") for e in grid_eth]
+    lines.append(f"{g} & " + " & ".join(cells) + r" \\")
 lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
 open(os.path.join(GEN, "fee_table.tex"), "w").write("\n".join(lines) + "\n")
 
@@ -279,7 +297,7 @@ E2E_DESC = {
 }
 if e2e:
     lines = [r"\begin{table}[t]", r"\centering", r"\scriptsize",
-             r"\caption{End-to-end functional verification on the live networks. Allocations are deposit shares in "
+             r"\caption{End-to-end functional verification on the deployed test networks. Allocations are deposit shares in "
              r"token units (deposit = 1{,}000, rent = 500 per period); \emph{recorded} is the share stored by the "
              r"contract or chaincode, \emph{withdrawn} the amount actually received. N1--N4 must be rejected.}",
              r"\label{tab:e2e}", r"\begin{tabularx}{\textwidth}{@{}>{\raggedright}Xcccc@{}}", r"\toprule",

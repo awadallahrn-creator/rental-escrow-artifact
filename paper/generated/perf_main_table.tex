@@ -1,7 +1,7 @@
 \begin{table}[t]
 \centering
 \footnotesize
-\caption{Performance under fixed offered load (rent payments). Mean $\pm$ standard deviation over three repetitions of 60\,s each. \emph{Sent} falls below \emph{Offered} when all 1{,}000 leases already have a payment in flight (a tenant pays one period at a time). Latency is client-observed submit-to-commit time; \emph{Failed} counts transactions rejected at endorsement/submission or invalidated at commit; CPU is the share of total host capacity used by the blockchain nodes (all cores = 100\%).}
+\caption{Performance under fixed offered load (rent payments). Mean $\pm$ standard deviation over three repetitions of 60\,s each; p95 is the mean of the per-run 95th percentiles. \emph{Sent} falls below \emph{Offered} when all 1{,}000 leases already have a payment in flight (a tenant pays one period at a time); the scheduled submission is then skipped, so beyond saturation latency and failure rate refer to the payments actually sent. Latency is client-observed submit-to-commit time of committed payments; \emph{Failed} is the share of payments sent in the window that were rejected at endorsement or submission, invalidated at commit, or not committed within the drain period; CPU is the share of total host capacity used by the blockchain nodes (all cores = 100\%).}
 \label{tab:perf}
 \begin{tabular}{@{}rrrrrrr@{}}
 \toprule

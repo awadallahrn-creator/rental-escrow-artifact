@@ -1,0 +1,36 @@
+runs 66 records 293130
+raw CSV agrees with every summary JSON (sub, thr, mean lat, p95): True
+
+== besu_main
+rate  sent  thr±sd        mean_lat±sd   p95(mean of runs)  fail%  skipped  ok_committed_after_window
+  10   10.0   10.0± 0.0    1.12±0.03     2.03    0.0       0      42  thr range 10.0-10.0 lat range 1.08-1.14
+  25   25.0   25.0± 0.0    1.25±0.01     2.15    0.0       0     101  thr range 25.0-25.0 lat range 1.24-1.26
+  50   50.0   50.0± 0.0    1.48±0.04     2.38    0.0       0     289  thr range 50.0-50.0 lat range 1.44-1.53
+  75   75.0   75.0± 0.0    1.84±0.07     2.85    0.0       0     483  thr range 75.0-75.0 lat range 1.75-1.89
+ 100  100.0  100.0± 0.0    2.08±0.06     3.06    0.0       0     574  thr range 100.0-100.0 lat range 2.01-2.12
+ 125  117.3  115.9± 5.6    3.56±0.51     6.10    0.0    1378    1267  thr range 109.7-120.3 lat range 2.96-3.87
+ 150  120.5  120.5± 0.7    4.47±0.17     6.29    0.0    5315    1321  thr range 120.1-121.3 lat range 4.29-4.63
+
+== fabric_main
+rate  sent  thr±sd        mean_lat±sd   p95(mean of runs)  fail%  skipped  ok_committed_after_window
+  10   10.0   10.0± 0.0    0.07±0.00     0.10    0.0       0       0  thr range 10.0-10.0 lat range 0.07-0.08
+  25   25.0   25.0± 0.0    0.11±0.00     0.18    0.0       0       6  thr range 25.0-25.0 lat range 0.11-0.11
+  50   50.0   49.4± 1.0    1.05±1.07     1.72    0.0       0     225  thr range 48.3-50.0 lat range 0.38-2.29
+  75   57.9   53.8± 1.4   14.88±0.17    17.90    3.2    3074    2984  thr range 52.6-55.3 lat range 14.69-14.99
+ 100   58.8   50.6± 4.2   15.75±1.27    19.82   13.2    7408    2995  thr range 46.0-54.2 lat range 14.66-17.14
+ 125   56.5   51.6± 2.4   15.49±0.43    19.45    8.2   12327    3000  thr range 50.1-54.4 lat range 15.22-15.99
+ 150   56.2   53.9± 2.2   15.01±0.42    18.09    3.4   16885    2967  thr range 51.7-56.1 lat range 14.68-15.48
+
+== besu_period1s
+rate  sent  thr±sd        mean_lat±sd   p95(mean of runs)  fail%  skipped  ok_committed_after_window
+  25   25.0   25.0± 0.0    0.64±0.01     1.09    0.0       0      55  thr range 25.0-25.0 lat range 0.63-0.66
+  50   50.0   50.0± 0.0    0.75±0.03     1.20    0.0       0     100  thr range 50.0-50.0 lat range 0.71-0.77
+  75   75.0   75.0± 0.0    0.91±0.02     1.38    0.0       0     224  thr range 75.0-75.0 lat range 0.89-0.94
+ 100  100.0  100.0± 0.0    1.18±0.16     2.11    0.0       0     307  thr range 100.0-100.0 lat range 1.08-1.37
+
+== fabric_majority
+rate  sent  thr±sd        mean_lat±sd   p95(mean of runs)  fail%  skipped  ok_committed_after_window
+  25   25.0   25.0± 0.0    0.08±0.00     0.12    0.0       0       5  thr range 25.0-25.0 lat range 0.08-0.09
+  50   50.0   50.0± 0.0    0.18±0.03     0.29    0.0       0      24  thr range 50.0-50.0 lat range 0.14-0.19
+  75   69.9   61.1± 1.8   12.32±1.44    14.86    1.0     914    2924  thr range 59.2-62.7 lat range 10.67-13.26
+ 100   73.2   68.8± 2.0   12.75±0.03    14.97    5.4    4822    2997  thr range 66.5-70.0 lat range 12.74-12.78
